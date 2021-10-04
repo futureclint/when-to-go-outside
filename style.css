@@ -1,15 +1,50 @@
 body {
     padding: 20px;
     background-color: #1b1c1d;
+}
+
+/* Apply basic typography */
+body, button {
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 15px;
     color: #ffffff;
 }
 
-h1 {
+/* Text highlight colors */
+::selection {
+    background: #2ad26d;
+    color: #ffffff;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
     padding: 0 0 20px 0;
+    border-bottom: 2px solid #1c8a48;
+}
+
+h1 {
+    flex-grow: 2;
     margin: 0 auto;
-    border-bottom: 1px solid #2ad26d;
     font-size: 30px;
     color: #2ad26d;
 }
+
+/* Header Button */
+header button {
+    padding: 0 12px;
+    background: #2ad26d;
+    border: none;
+    border-bottom: 2px solid #1c8a48;
+    color: #000000;
+    cursor: pointer;
+}
+header button:active {
+    border-top: 2px solid #1b1c1d;
+    border-bottom: none;
+}
+
+
