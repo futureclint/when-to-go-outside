@@ -49,43 +49,72 @@ const userWeather = (location) => {
 // FUNCTION: parseWeatherData
 const parseWeatherData = (weather) => {
 
-    // Current temperature in Fahrenheit and rounded
+    // Get current temperature and display
     let currentTemp = Math.round(weather.current.temp * 1.8 - 459.67);
-
-    // Log current temperature
     console.log('Current temperature: ' + currentTemp + '°');
+
+    // Get current time and display
+    const now = currentTime();
+    console.log('Current Time: ' + displayTime(now.hours, now.minutes));
 
     // Mess with times
     console.log(`Let's mess with times…`)
 
     console.log(`- - -`);
 
-    // Hourly
-    const time0 = new Date(weather.hourly[0].dt * 1000); // convert to date and time
-    const hour0 = Number(time0.getHours()); // get hour as integer
-    const displayTime0 = displayTime(hour0);
-    console.log(`Time 0: ${time0}`);
-    console.log(`Hour 0: ${hour0}`);
-    console.log(`Display Time 0: ${displayTime0}`);
+    // Create empty array for hour blocks
+    const hourBlock = [];
+
+    // Assign next 24 hours of hourly weather objects to array
+    for (let i = 0; i < 24; i++) {
+        hourBlock[i] = weather.hourly[i];
+    }
+
+    // Log first hourly weather object as an example
+    console.log('First hour of weather:');
+    console.log(hourBlock[0]);
+
+    // Determine how many blocks to delete based on time of first hour block
+    // Find hours left in the day
+    let hoursLeft = 24 - Number((new Date(hourBlock[0].dt * 1000)).getHours());
+    console.log('Hours left in day: ' + hoursLeft);
+
+    // Find hours already passed in the day, then delete same number from array
+    let hoursPassed = 24 - hoursLeft;
+    for (hoursPassed; hoursPassed > 0; hoursPassed--) {
+        hourBlock.pop();
+    }
+
+    // Log array length, which should equal hours left in the day
+    console.log('HourBlock length: ' + hourBlock.length);
 
     console.log(`- - -`);
 
-    const time5 = new Date(weather.hourly[5].dt * 1000); // convert to date and time
-    const hour5 = Number(time5.getHours()); // get hour as integer
-    const displayTime5 = displayTime(hour5);
-    console.log(`Time 5: ${time5}`);
-    console.log(`Hour 5: ${hour5}`);
-    console.log(`Display Time 5: ${displayTime5}`);
+    // Iterate over hourBlock array for time ranges
+    for (let i = 0; i < hourBlock.length; i++) {
+        let time = new Date(hourBlock[i].dt * 1000);
+        let hour = Number(time.getHours());
 
+        // If first hour block, start at current time
+        if (i === 0) {
+            console.log( 'Time Range ' + i + ': ' +
+                displayTime(currentTime().hours, currentTime().minutes) +
+                ' – ' + displayTime((hour + 1)) );
+            console.log(`- - -`);
+        } else {
+            console.log( 'Time Range ' + i + ': ' +
+                displayTime(hour) + ' – ' + displayTime((hour + 1)));
+            console.log(`- - -`);
+        }
 
-
-
-
-
-
+    }
 
     // Log end
     console.log(`- - - end - - -`);
+}
+
+const getHours = (hour) => {
+
 }
 
 // FUNCTION: currentTime
@@ -106,8 +135,12 @@ const currentTime = () => {
 // For minutes less than 10 it adds a 0 in front of minutes (format: 8:07 AM)
 // Outputs the time as a display string (format: 8:32 AM)
 const displayTime = (hour, minutes = 0) => {
-    if (hour <= 12) {
+    if (hour < 12) {
         return hour.toString() + ':' + (minutes < 10 ? '0' : '') + minutes.toString() + ' AM';
+    } else if (hour === 12) {
+        return hour.toString() + ':' + (minutes < 10 ? '0' : '') + minutes.toString() + ' PM';
+    } else if (hour === 24) {
+        return (hour - 12).toString() + ':' + (minutes < 10 ? '0' : '') + minutes.toString() + ' AM';
     } else {
         return (hour - 12).toString() + ':' + (minutes < 10 ? '0' : '') + minutes.toString() + ' PM';
     }
