@@ -100,10 +100,12 @@ const parseWeatherData = (weather) => {
             console.log( 'Time Range ' + i + ': ' +
                 displayTime(currentTime().hours, currentTime().minutes) +
                 ' – ' + displayTime((hour + 1)) );
+                console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
             console.log(`- - -`);
         } else {
             console.log( 'Time Range ' + i + ': ' +
                 displayTime(hour) + ' – ' + displayTime((hour + 1)));
+            console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
             console.log(`- - -`);
         }
 
@@ -144,6 +146,12 @@ const displayTime = (hour, minutes = 0) => {
     } else {
         return (hour - 12).toString() + ':' + (minutes < 10 ? '0' : '') + minutes.toString() + ' PM';
     }
+}
+
+// FUNCTION: convertTemp
+// Receives a Kelvin temperature, then converts to Fahrenheit
+const convertTemp = (temp) => {
+    return Math.round(temp * 1.8 - 459.67);
 }
 
 // Log start
