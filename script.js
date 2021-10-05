@@ -135,12 +135,22 @@ const parseWeatherData = (weather) => {
 
     console.log(`- - -`);
 
+    console.log(`Let's add a qualityIndex key/value…`);
+
+    // Iterate over hourBlock array to add qualityIndex
+    for (let i = 0; i < hourBlock.length; i++) {
+        hourBlock[i].qualityIndex = 100;
+    }
+
+    console.log(`- - -`);
+
     console.log(`Now let's output the remaining time blocks…`);
 
     // Iterate over hourBlock array for time ranges
     for (let i = 0; i < hourBlock.length; i++) {
 
-        let hour = getBlockHour(hourBlock[i]);
+        let block = hourBlock[i];
+        let hour = getBlockHour(block);
         console.log(`~~~ hour is ${hour} ~~~`)
 
         // If first hour block, start at current time or sunrise time (if sunrise hour)
@@ -155,18 +165,21 @@ const parseWeatherData = (weather) => {
                     displayTime(getTime().hours, getTime().minutes) +
                     ' – ' + displayTime((hour + 1)) );
             }
-            console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
+            console.log('Temp: ' + convertTemp(block.temp) + '°');
+            console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         } else if (i === (hourBlock.length - 1)) {
             console.log( 'Time Range ' + i + ': ' +
                 displayTime(hour) + ' – ' +
                 displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes));
-            console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
+            console.log('Temp: ' + convertTemp(block.temp) + '°');
+            console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         } else {
             console.log( 'Time Range ' + i + ': ' +
                 displayTime(hour) + ' – ' + displayTime((hour + 1)));
-            console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
+            console.log('Temp: ' + convertTemp(block.temp) + '°');
+            console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         }
 
