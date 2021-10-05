@@ -112,7 +112,7 @@ const parseWeatherData = (weather) => {
     }
 
     // Log end
-    console.log(`- - - end - - -`);
+    console.log(`---------------------END---------------------`);
 }
 
 const getHours = (hour) => {
@@ -155,7 +155,7 @@ const convertTemp = (temp) => {
 }
 
 // Log start
-console.log('- - - start - - -');
+console.log('--------------------START--------------------');
 
 // Listen for user click on button, run userLocation function
 document.querySelector('#location').addEventListener('click', userLocation);
