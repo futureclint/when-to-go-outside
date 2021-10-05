@@ -62,14 +62,6 @@ const parseWeatherData = (weather) => {
 
     console.log(`- - -`);
 
-    // Sunrise & sunset times
-    const timeSunRise = new Date(weather.current.sunrise * 1000);
-    const timeSunSet = new Date(weather.current.sunset * 1000);
-    console.log(`Sunrise: ${timeSunRise}`);
-    console.log(`Sunset: ${timeSunSet}`);
-
-    console.log(`- - -`);
-
     // Create empty array for hour blocks
     const hourBlock = [];
 
@@ -96,19 +88,82 @@ const parseWeatherData = (weather) => {
     // Log array length, which should equal hours left in the day
     console.log('HourBlock length: ' + hourBlock.length);
 
+    for (let i = 0; i < hourBlock.length; i++) {
+        console.log(hourBlock[i]);
+    }
+
     console.log(`- - -`);
+
+    // Sunrise & sunset times
+    console.log(`Let's figure out sunrise/sunset…`);
+
+    const sunriseTime = new Date(weather.current.sunrise * 1000);
+    const sunsetTime = new Date(weather.current.sunset * 1000);
+    const sunriseHour = getTime(new Date(weather.current.sunrise * 1000)).hours;
+    const sunsetHour = getTime(new Date(weather.current.sunset * 1000)).hours;
+
+    console.log(`Here are the current hours…`);
+    for (let i = 0; i < hourBlock.length; i++) {
+        let time = new Date(hourBlock[i].dt * 1000);
+        let hour = Number(time.getHours());
+        console.log(`Block ${i} hour: ${hour}`);
+    }
+
+    console.log(`Let's remove pre-sunrise hours…`);
+    // Loop beginning to end and remove items from front of array that are pre-sunrise
+    for (let i = 0; i < hourBlock.length; i++) {
+        let time = new Date(hourBlock[i].dt * 1000);
+        let hour = Number(time.getHours());
+
+        if (hour < sunriseHour) {
+            hourBlock.shift();
+        } else {
+            console.log(`Block ${i} hour: ${hour}`);
+        }
+    }
+
+    console.log(`Let's remove post-sunset hours…`);
+    for (let i = (hourBlock.length - 1); i > 0; i--) {
+        let time = new Date(hourBlock[i].dt * 1000);
+        let hour = Number(time.getHours());
+
+        if (hour > sunsetHour) {
+            hourBlock.pop();
+        } else {
+            console.log(`Block ${i} hour: ${hour}`);
+        }
+    }
+
+    console.log(`- - -`);
+
+    console.log(`Remaining time blocks: ${hourBlock.length}`);
+
+    console.log(`Now let's output the remaining time blocks…`);
 
     // Iterate over hourBlock array for time ranges
     for (let i = 0; i < hourBlock.length; i++) {
         let time = new Date(hourBlock[i].dt * 1000);
         let hour = Number(time.getHours());
 
-        // If first hour block, start at current time
+        // If first hour block, start at current time or sunrise time (if sunrise hour)
+        // Else if last hour block, stop at sunset time
         if (i === 0) {
+            if (sunriseHour === hour) {
+                console.log( 'Time Range ' + i + ': ' +
+                    displayTime(getTime(sunriseTime).hours, getTime(sunriseTime).minutes)
+                    + ' – ' + displayTime((hour + 1)) );
+            } else {
+                console.log( 'Time Range ' + i + ': ' +
+                    displayTime(getTime().hours, getTime().minutes) +
+                    ' – ' + displayTime((hour + 1)) );
+            }
+            console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
+            console.log(`- - -`);
+        } else if (i === (hourBlock.length - 1)) {
             console.log( 'Time Range ' + i + ': ' +
-                displayTime(getTime().hours, getTime().minutes) +
-                ' – ' + displayTime((hour + 1)) );
-                console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
+                displayTime(hour) + ' – ' +
+                displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes));
+            console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
             console.log(`- - -`);
         } else {
             console.log( 'Time Range ' + i + ': ' +
