@@ -54,11 +54,19 @@ const parseWeatherData = (weather) => {
     console.log('Current temperature: ' + currentTemp + '°');
 
     // Get current time and display
-    const now = currentTime();
+    const now = getTime();
     console.log('Current Time: ' + displayTime(now.hours, now.minutes));
 
     // Mess with times
     console.log(`Let's mess with times…`)
+
+    console.log(`- - -`);
+
+    // Sunrise & sunset times
+    const timeSunRise = new Date(weather.current.sunrise * 1000);
+    const timeSunSet = new Date(weather.current.sunset * 1000);
+    console.log(`Sunrise: ${timeSunRise}`);
+    console.log(`Sunset: ${timeSunSet}`);
 
     console.log(`- - -`);
 
@@ -98,7 +106,7 @@ const parseWeatherData = (weather) => {
         // If first hour block, start at current time
         if (i === 0) {
             console.log( 'Time Range ' + i + ': ' +
-                displayTime(currentTime().hours, currentTime().minutes) +
+                displayTime(getTime().hours, getTime().minutes) +
                 ' – ' + displayTime((hour + 1)) );
                 console.log('Temp: ' + convertTemp(hourBlock[i].temp) + '°');
             console.log(`- - -`);
@@ -115,14 +123,10 @@ const parseWeatherData = (weather) => {
     console.log(`---------------------END---------------------`);
 }
 
-const getHours = (hour) => {
-
-}
-
-// FUNCTION: currentTime
-// Gets the current time and returns is as an object with hours and minutes as integers
-const currentTime = () => {
-    const date = new Date();
+// FUNCTION: getTime
+// Given a date passed in, returns the time as an object with hours and minutes as integers
+// If no date passed in, date is assigned the current date/time
+const getTime = (date = new Date()) => {
     const time = {
         hours: Number(date.getHours()),
         minutes: Number(date.getMinutes())
