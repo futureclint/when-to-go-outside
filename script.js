@@ -104,17 +104,14 @@ const parseWeatherData = (weather) => {
 
     console.log(`Here are the current hours…`);
     for (let i = 0; i < hourBlock.length; i++) {
-        let time = new Date(hourBlock[i].dt * 1000);
-        let hour = Number(time.getHours());
+        let hour = getBlockHour(hourBlock[i]);
         console.log(`Block ${i} hour: ${hour}`);
     }
 
     console.log(`Let's remove pre-sunrise hours…`);
     // Loop beginning to end and remove items from front of array that are pre-sunrise
     for (let i = 0; i < hourBlock.length; i++) {
-        let time = new Date(hourBlock[i].dt * 1000);
-        let hour = Number(time.getHours());
-
+        let hour = getBlockHour(hourBlock[i]);
         if (hour < sunriseHour) {
             hourBlock.shift();
         } else {
@@ -124,9 +121,7 @@ const parseWeatherData = (weather) => {
 
     console.log(`Let's remove post-sunset hours…`);
     for (let i = (hourBlock.length - 1); i > 0; i--) {
-        let time = new Date(hourBlock[i].dt * 1000);
-        let hour = Number(time.getHours());
-
+        let hour = getBlockHour(hourBlock[i]);
         if (hour > sunsetHour) {
             hourBlock.pop();
         } else {
@@ -138,12 +133,15 @@ const parseWeatherData = (weather) => {
 
     console.log(`Remaining time blocks: ${hourBlock.length}`);
 
+    console.log(`- - -`);
+
     console.log(`Now let's output the remaining time blocks…`);
 
     // Iterate over hourBlock array for time ranges
     for (let i = 0; i < hourBlock.length; i++) {
-        let time = new Date(hourBlock[i].dt * 1000);
-        let hour = Number(time.getHours());
+
+        let hour = getBlockHour(hourBlock[i]);
+        console.log(`~~~ hour is ${hour} ~~~`)
 
         // If first hour block, start at current time or sunrise time (if sunrise hour)
         // Else if last hour block, stop at sunset time
@@ -211,6 +209,14 @@ const displayTime = (hour, minutes = 0) => {
 // Receives a Kelvin temperature, then converts to Fahrenheit
 const convertTemp = (temp) => {
     return Math.round(temp * 1.8 - 459.67);
+}
+
+// FUNCTION: getBlockHour
+// Receive an array item from hourBlock and returns the hour value
+const getBlockHour = (block) => {
+    let time = new Date(block.dt * 1000);
+    let hour = Number(time.getHours());
+    return hour;
 }
 
 // Log start
