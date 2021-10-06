@@ -60,8 +60,8 @@ header button:active {
 /* MAIN --------------------------------------------------------------------- */
 
 main {
-    min-height: 20vh; /* TEMP */
-    padding: 5px 20px; /* elements above and below already have spacing */
+    min-height: 300px;
+    padding: 0 20px; /* elements above and below already have spacing */
 }
 main > div {
     padding: 20px;
