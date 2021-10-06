@@ -36,7 +36,7 @@ header {
     align-items: stretch;
     padding-bottom: 20px;
     margin: 20px;
-    border-bottom: 2px solid var(--green-dark);
+    border-bottom: 1px solid var(--green-dark);
 }
 h1 {
     flex-grow: 2;
@@ -60,13 +60,14 @@ header button:active {
 /* MAIN --------------------------------------------------------------------- */
 
 main {
-    min-height: 50vh; /* TEMP */
-    padding: 0 20px; /* elements above and below already have spacing */
+    min-height: 20vh; /* TEMP */
+    padding: 5px 20px; /* elements above and below already have spacing */
 }
 main > div {
     padding: 20px;
+    margin-bottom: 6px;
     background-color: var(--bg);
-    border: 1px solid transparent;
+    border: 1px solid #000;
 }
 main > div:hover {
     border: 1px solid var(--green-dark);
