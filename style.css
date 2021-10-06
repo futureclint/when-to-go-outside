@@ -1,6 +1,16 @@
+/* VARIABLES ---------------------------------------------------------------- */
+
+:root {
+    --green: #2ad26d;
+    --green-dark: #1c8a48;
+    --bg: #1b1c1d;
+    --bg-dark: #101111;
+}
+
+/* PAGE --------------------------------------------------------------------- */
+
 body {
-    padding: 20px;
-    background-color: #1b1c1d;
+    background-color: var(--bg-dark);
 }
 
 /* Apply basic typography */
@@ -12,9 +22,11 @@ body, button {
 
 /* Text highlight colors */
 ::selection {
-    background: #2ad26d;
+    background: var(--green);
     color: #ffffff;
 }
+
+/* HEADER ------------------------------------------------------------------ */
 
 header {
     display: flex;
@@ -22,29 +34,61 @@ header {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    padding: 0 0 20px 0;
-    border-bottom: 2px solid #1c8a48;
+    padding-bottom: 20px;
+    margin: 20px;
+    border-bottom: 2px solid var(--green-dark);
 }
-
 h1 {
     flex-grow: 2;
     margin: 0 auto;
     font-size: 30px;
-    color: #2ad26d;
+    color: var(--green);
 }
-
-/* Header Button */
 header button {
     padding: 0 12px;
-    background: #2ad26d;
+    background: var(--green);
     border: none;
-    border-bottom: 2px solid #1c8a48;
+    border-bottom: 2px solid var(--green-dark);
     color: #000000;
     cursor: pointer;
 }
 header button:active {
-    border-top: 2px solid #1b1c1d;
+    border-top: 2px solid var(--bg-dark);
     border-bottom: none;
 }
 
+/* MAIN --------------------------------------------------------------------- */
+
+main {
+    min-height: 50vh; /* TEMP */
+    padding: 0 20px; /* elements above and below already have spacing */
+}
+main > div {
+    padding: 20px;
+    background-color: var(--bg);
+    border: 1px solid transparent;
+}
+main > div:hover {
+    border: 1px solid var(--green-dark);
+}
+
+/* FOOTER ------------------------------------------------------------------- */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    margin: 20px;
+    border-top: 1px solid #303632;
+}
+footer, footer a {
+    color: #506053;
+}
+footer a {
+    text-decoration: none;
+    border-bottom: 1px solid;
+}
+footer a:hover {
+    color: var(--green);
+}
 
