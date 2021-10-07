@@ -1,4 +1,6 @@
 // FUNCTION: userLocation
+// Runs when button is clicked
+// If location successfully received, calls userWeather function and passes location to it
 const userLocation = () => {
 
     // Runs if location successfully received
@@ -27,6 +29,8 @@ const userLocation = () => {
 }
 
 // FUNCTION: userWeather
+// Calls OpenWeather API using given location, then converts data to JSON
+// Calls parseWeatherData function and passes JSON object to it
 const userWeather = (location) => {
 
     const weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely&exclude=daily&appid=5a9bbd6a2093ff22cc95b08a149b5373`;
@@ -47,6 +51,7 @@ const userWeather = (location) => {
 }
 
 // FUNCTION: parseWeatherData
+// Receives JSON weather data, then parses it, then displays it on the page
 const parseWeatherData = (weather) => {
 
     // Declare variables
@@ -163,6 +168,7 @@ const parseWeatherData = (weather) => {
 
         // Output icon image
         // Add src, width, title, and alt before appending
+        // Icons are 100px @2X, so set width to 50px
         let iconImg = document.createElement('img');
         iconImg.setAttribute('src', `http://openweathermap.org/img/wn/${iconCode}@2x.png`);
         iconImg.setAttribute('width', '50');
@@ -176,8 +182,6 @@ const parseWeatherData = (weather) => {
         console.log(`UV Index: ${uvIndex}`);
         console.log(`Humidity: ${humidity}%`);
         console.log(`Precipitation Chance: ${precipitation}%`);
-        console.log(`Icon Code: ${iconCode}`);
-        console.log(`Description: ${description}`);
         console.log(`Quality Index: ${qualityIndex}`);
         console.log(`- - -`);
 
