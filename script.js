@@ -54,6 +54,9 @@ const userWeather = (location) => {
 // Receives JSON weather data, then parses it, then displays it on the page
 const parseWeatherData = (weather) => {
 
+    // First remove any hour elements that already might exist on the page
+    removeHourElements();
+
     // Declare variables
     // Create variables for sunrise time, sunset time
     const sunriseTime = new Date(weather.current.sunrise * 1000);
@@ -258,6 +261,11 @@ const getBlockHour = (block) => {
     let time = new Date(block.dt * 1000);
     let hour = Number(time.getHours());
     return hour;
+}
+
+const removeHourElements = () => {
+    const hourElements = document.querySelector('.hours');
+    hourElements.innerHTML = '';
 }
 
 // Log start
