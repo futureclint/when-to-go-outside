@@ -143,6 +143,7 @@ main {
 }
 .hours img {
     display: block;
+    min-height: 40px; /* expand to fill space if image doesn't load properly */
     margin: 0 10px 0 0;
     -webkit-filter: drop-shadow(0 2px 6px #000000);
     filter: drop-shadow(0 2px 6px #000000);

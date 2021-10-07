@@ -197,7 +197,8 @@ const parseWeatherData = (weather) => {
         // Add src, width, title, and alt before appending
         // Icons are 100px @2X, so set width to 50px
         let iconImg = document.createElement('img');
-        iconImg.setAttribute('src', `http://openweathermap.org/img/wn/${iconCode}@2x.png`);
+        let iconImgURL = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        iconImg.setAttribute('src', iconImgURL);
         iconImg.setAttribute('width', '50');
         iconImg.setAttribute('title', description);
         iconImg.setAttribute('alt', description);
