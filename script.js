@@ -49,6 +49,15 @@ const userWeather = (location) => {
 // FUNCTION: parseWeatherData
 const parseWeatherData = (weather) => {
 
+    // Declare variables
+    // Create variables for sunrise time, sunset time
+    const sunriseTime = new Date(weather.current.sunrise * 1000);
+    const sunsetTime = new Date(weather.current.sunset * 1000);
+
+    // Create variables for the hour
+    const sunriseHour = getTime(new Date(weather.current.sunrise * 1000)).hours;
+    const sunsetHour = getTime(new Date(weather.current.sunset * 1000)).hours;
+
     // Get current temperature and display
     let currentTemp = Math.round(weather.current.temp * 1.8 - 459.67);
     console.log('Current temperature: ' + currentTemp + '°');
@@ -56,11 +65,6 @@ const parseWeatherData = (weather) => {
     // Get current time and display
     const now = getTime();
     console.log('Current Time: ' + displayTime(now.hours, now.minutes));
-
-    // Mess with times
-    console.log(`Let's mess with times…`)
-
-    console.log(`- - -`);
 
     // Create empty array for hour blocks
     const hourBlock = [];
@@ -70,14 +74,9 @@ const parseWeatherData = (weather) => {
         hourBlock[i] = weather.hourly[i];
     }
 
-    // Log first hourly weather object as an example
-    console.log('First hour of weather:');
-    console.log(hourBlock[0]);
-
     // Determine how many blocks to delete based on time of first hour block
     // Find hours left in the day
     let hoursLeft = 24 - Number((new Date(hourBlock[0].dt * 1000)).getHours());
-    console.log('Hours left in day: ' + hoursLeft);
 
     // Find hours already passed in the day, then delete same number from array
     let hoursPassed = 24 - hoursLeft;
@@ -85,82 +84,64 @@ const parseWeatherData = (weather) => {
         hourBlock.pop();
     }
 
-    // Log array length, which should equal hours left in the day
-    console.log('HourBlock length: ' + hourBlock.length);
-
-    for (let i = 0; i < hourBlock.length; i++) {
-        console.log(hourBlock[i]);
-    }
-
-    console.log(`- - -`);
-
-    // Sunrise & sunset times
-    console.log(`Let's figure out sunrise/sunset…`);
-
-    const sunriseTime = new Date(weather.current.sunrise * 1000);
-    const sunsetTime = new Date(weather.current.sunset * 1000);
-    const sunriseHour = getTime(new Date(weather.current.sunrise * 1000)).hours;
-    const sunsetHour = getTime(new Date(weather.current.sunset * 1000)).hours;
-
-    console.log(`Here are the current hours…`);
-    for (let i = 0; i < hourBlock.length; i++) {
-        let hour = getBlockHour(hourBlock[i]);
-        console.log(`Block ${i} hour: ${hour}`);
-    }
-
-    console.log(`Let's remove pre-sunrise hours…`);
     // Loop beginning to end and remove items from front of array that are pre-sunrise
     for (let i = 0; i < hourBlock.length; i++) {
         let hour = getBlockHour(hourBlock[i]);
         if (hour < sunriseHour) {
             hourBlock.shift();
-        } else {
-            console.log(`Block ${i} hour: ${hour}`);
         }
     }
 
-    console.log(`Let's remove post-sunset hours…`);
+    // Loop end to beginning and remove items from end of array that are post-sunset
     for (let i = (hourBlock.length - 1); i > 0; i--) {
         let hour = getBlockHour(hourBlock[i]);
         if (hour > sunsetHour) {
             hourBlock.pop();
-        } else {
-            console.log(`Block ${i} hour: ${hour}`);
         }
     }
 
-    console.log(`- - -`);
-
-    console.log(`Remaining time blocks: ${hourBlock.length}`);
-
-    console.log(`- - -`);
-
-    console.log(`Let's add a qualityIndex key/value…`);
-
-    // Iterate over hourBlock array to add qualityIndex
+    // Iterate over hourBlock array to add qualityIndex, starting at 100
     for (let i = 0; i < hourBlock.length; i++) {
         hourBlock[i].qualityIndex = 100;
     }
 
-    console.log(`- - -`);
-
-    console.log(`Now let's output the remaining time blocks…`);
+    console.log(`Let's output the time blocks…`);
 
     // Iterate over hourBlock array for time ranges
     for (let i = 0; i < hourBlock.length; i++) {
 
+        // Declare variables
+
+        // Create variable for the current array item we're in (block)
         let block = hourBlock[i];
+
+        // Create variable for the hour of the current block we're in
         let hour = getBlockHour(block);
+
+        // Create new div element for the hour we are in, then append it to the "hours" div
+        let hourDiv = document.createElement('div');
+        document.querySelector('.hours').appendChild(hourDiv);
+        // Create new h3 for time range, then append it to the hour div
+        let timeRange = document.createElement('h3');
+        hourDiv.appendChild(timeRange);
+
+        // Log the hour we are in
         console.log(`~~~ hour is ${hour} ~~~`)
 
         // If first hour block, start at current time or sunrise time (if sunrise hour)
         // Else if last hour block, stop at sunset time
         if (i === 0) {
             if (sunriseHour === hour) {
+
+                timeRange.innerText = "sunrise hour";
+
                 console.log( 'Time Range ' + i + ': ' +
                     displayTime(getTime(sunriseTime).hours, getTime(sunriseTime).minutes)
                     + ' – ' + displayTime((hour + 1)) );
             } else {
+
+                timeRange.innerText = "current hour";
+
                 console.log( 'Time Range ' + i + ': ' +
                     displayTime(getTime().hours, getTime().minutes) +
                     ' – ' + displayTime((hour + 1)) );
@@ -169,6 +150,9 @@ const parseWeatherData = (weather) => {
             console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         } else if (i === (hourBlock.length - 1)) {
+
+            timeRange.innerText = "sunset hour";
+
             console.log( 'Time Range ' + i + ': ' +
                 displayTime(hour) + ' – ' +
                 displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes));
@@ -176,6 +160,9 @@ const parseWeatherData = (weather) => {
             console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         } else {
+
+            timeRange.innerText = "normal hour";
+
             console.log( 'Time Range ' + i + ': ' +
                 displayTime(hour) + ' – ' + displayTime((hour + 1)));
             console.log('Temp: ' + convertTemp(block.temp) + '°');

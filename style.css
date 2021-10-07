@@ -63,13 +63,13 @@ main {
     min-height: 300px;
     padding: 0 20px; /* elements above and below already have spacing */
 }
-main > div {
+.hours > div {
     padding: 20px;
     margin-bottom: 6px;
     background-color: var(--bg);
     border: 1px solid #000;
 }
-main > div:hover {
+.hours > div:hover {
     border: 1px solid var(--green-dark);
 }
 
