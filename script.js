@@ -166,6 +166,24 @@ const parseWeatherData = (weather) => {
             timeRange.innerText = `${displayTime(hour)}–${displayTime(hour + 1)}`;
         }
 
+        // Create spans for weather details text
+        let spanTemp = document.createElement('span');
+        let spanUVI = document.createElement('span');
+        let spanHumid = document.createElement('span');
+        let spanPrecip = document.createElement('span');
+
+        // Add text data to spans
+        spanTemp.innerText = `${temperature}°`;
+        spanUVI.innerText = `${uvIndex}`;
+        spanHumid.innerText = `${humidity}%`;
+        spanPrecip.innerText = `${precipitation}%`;
+
+        // Append spans to hour div
+        hourDiv.appendChild(spanTemp);
+        hourDiv.appendChild(spanUVI);
+        hourDiv.appendChild(spanHumid);
+        hourDiv.appendChild(spanPrecip);
+
         // Output icon image
         // Add src, width, title, and alt before appending
         // Icons are 100px @2X, so set width to 50px
