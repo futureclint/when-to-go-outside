@@ -11,6 +11,7 @@
 /* PAGE --------------------------------------------------------------------- */
 
 body {
+    border-top: 5px solid blue;
     background-color: var(--bg-dark);
 }
 
@@ -52,6 +53,7 @@ header button {
     border-bottom: 2px solid var(--green-dark);
     color: #000000;
     cursor: pointer;
+    border-radius: 5px;
 }
 header button:active {
     border-top: 2px solid var(--bg-dark);
@@ -62,15 +64,17 @@ header button:active {
 
 main {
     min-height: 300px;
-    padding: 0 20px; /* elements above and below already have spacing */
+    padding: 5px 20px; /* elements above and below already have spacing */
 }
 .hours > div {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between; /* ? */
+    justify-content: space-between;
     align-items: center;
+    position: relative;
     margin-bottom: 2px;
     background-color: var(--bg);
+    overflow: hidden;
 }
 .hours > div:first-child {
     border-top-right-radius: var(--radius);
@@ -92,13 +96,14 @@ main {
 }
 .hours span {
     display: block;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 .hours .details {
     font-size: 13px;
-    color: #aaa;
+    color: #9AA69C;
 }
 .hours .temp {
+    margin: 0 8px;
     font-weight: bold;
 }
 .hours img {
@@ -106,6 +111,58 @@ main {
     margin: 0 10px 0 0;
     -webkit-filter: drop-shadow(0 2px 6px #000000);
     filter: drop-shadow(0 2px 6px #000000);
+}
+
+/* Small Widths */
+@media (max-width: 700px) {
+    body {
+        border-top: 5px solid purple;
+    }
+    .hours > div {
+        flex-flow: row wrap;
+        padding-bottom: 10px;
+    }
+    .hours h3 {
+        order: 1;
+        margin: 10px 20px;
+    }
+    .hours span {
+        order: 4;
+        width: 100%;
+        margin: 0 20px 10px 20px;
+    }
+    .hours .temp {
+        order: 2;
+        width: auto;
+        margin: 0;
+    }
+    .hours img {
+        order: 3;
+        margin: 0;
+    }
+}
+
+/* Tiny Widths */
+@media (max-width: 320px) {
+    body {
+        border-top: 5px solid red;
+    }
+    .hours > div {
+        justify-content: flex-start;
+    }
+    .hours h3 {
+        width: 100%;
+        margin: 20px 20px 10px 20px;
+    }
+    .hours span {
+    }
+    .hours .temp {
+        margin: 0 20px 10px 20px;
+    }
+    .hours img {
+        position: absolute;
+        right: 20px;
+    }
 }
 
 /* FOOTER ------------------------------------------------------------------- */
