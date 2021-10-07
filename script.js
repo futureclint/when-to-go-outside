@@ -100,14 +100,10 @@ const parseWeatherData = (weather) => {
         }
     }
 
-    // Iterate over hourBlock array to add qualityIndex, starting at 100
-    for (let i = 0; i < hourBlock.length; i++) {
-        hourBlock[i].qualityIndex = 100;
-    }
-
     console.log(`Let's output the time blocks…`);
+    console.log(`- - -`);
 
-    // Iterate over hourBlock array for time ranges
+    // Iterate over hourBlock array to output elements for each hour block
     for (let i = 0; i < hourBlock.length; i++) {
 
         // Declare variables
@@ -125,45 +121,59 @@ const parseWeatherData = (weather) => {
         let timeRange = document.createElement('h3');
         hourDiv.appendChild(timeRange);
 
-        // Log the hour we are in
-        console.log(`~~~ hour is ${hour} ~~~`)
+        // Create variables for temperature, UV index, humidity, and precipitation chance
+        let temperature = convertTemp(block.temp);
+        let uvIndex = Math.round(block.uvi);
+        let humidity = block.humidity;
+        let precipitation = block.pop;
 
-        // If first hour block, start at current time or sunrise time (if sunrise hour)
+        // NOTE: it is possible (but not common) to have multiple weather types in the same hour, but this will default to just displaying the first for MVP
+        // TODO: iterate through weather types array to display multiple weather types if there are any
+        let iconCode = block.weather[0].icon;
+        let description = block.weather[0].description;
+
+        // Assign quality index of 100 to start, then deduct from score depending on conditions
+        // NOTE: for MVP this will not be displayed
+        // TODO: go through each weather condition and deduct from quality index, then display quality index
+        let qualityIndex = 100;
+
+        // Output time range
+        // If first hour block, start at current time or sunrise time
         // Else if last hour block, stop at sunset time
+        // Else output normal block time beginning to end
         if (i === 0) {
             if (sunriseHour === hour) {
-
+                // Sunrise hour
                 // Pass in time range to h3: sunrise time to end of block
                 timeRange.innerText = `${displayTime(getTime(sunriseTime).hours, getTime(sunriseTime).minutes)} (sunrise)–${displayTime(hour + 1)}`;
-
             } else {
-
+                // Current hour
                 // Pass in time range to h3: current time to end of block
                 timeRange.innerText = `${displayTime(getTime().hours, getTime().minutes)} (now)–${displayTime(hour + 1)}`;
-
             }
-            console.log('Temp: ' + convertTemp(block.temp) + '°');
-            console.log('Quality Index: ' + block.qualityIndex);
-            console.log(`- - -`);
         } else if (i === (hourBlock.length - 1)) {
-
-            // Pass in time range to h3: hour block start to end
-            timeRange.innerText = `${displayTime(hour)}–${displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes)} (sunset)`;
-
-            console.log('Temp: ' + convertTemp(block.temp) + '°');
-            console.log('Quality Index: ' + block.qualityIndex);
-            console.log(`- - -`);
-        } else {
-
+            // Sunset hour
             // Pass in time range to h3: hour block start to sunset time
+            timeRange.innerText = `${displayTime(hour)}–${displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes)} (sunset)`;
+        } else {
+            // Normal hour
+            // Pass in time range to h3: hour block start to end
             timeRange.innerText = `${displayTime(hour)}–${displayTime(hour + 1)}`;
-
-            console.log('Temp: ' + convertTemp(block.temp) + '°');
-            console.log('Quality Index: ' + block.qualityIndex);
-            console.log(`- - -`);
         }
 
+        // Log weather details for hour
+        console.log(`Hour: ${hour}`);
+        console.log(`Temperature: ${temperature}°`);
+        console.log(`UV Index: ${uvIndex}`);
+        console.log(`Humidity: ${humidity}%`);
+        console.log(`Precipitation Chance: ${precipitation}%`);
+        console.log(`Icon Code: ${iconCode}`);
+        console.log(`Description: ${description}`);
+        console.log(`Quality Index: ${qualityIndex}`);
+        console.log(`- - -`);
+
     }
+    // End of hourBlock array iteration
 
     // Log end
     console.log(`---------------------END---------------------`);
