@@ -56,11 +56,6 @@ header button:active {
     border-top: 2px solid var(--bg-dark);
     border-bottom: none;
 }
-img {
-    display: block;
-    -webkit-filter: drop-shadow(0 2px 6px #000000);
-    filter: drop-shadow(0 2px 6px #000000);
-}
 
 /* MAIN --------------------------------------------------------------------- */
 
@@ -72,6 +67,11 @@ main {
     padding: 20px;
     margin-bottom: 6px;
     background-color: var(--bg);
+}
+.hours img {
+    display: block;
+    -webkit-filter: drop-shadow(0 2px 6px #000000);
+    filter: drop-shadow(0 2px 6px #000000);
 }
 
 /* FOOTER ------------------------------------------------------------------- */
