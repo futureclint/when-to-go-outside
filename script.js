@@ -133,38 +133,31 @@ const parseWeatherData = (weather) => {
         if (i === 0) {
             if (sunriseHour === hour) {
 
-                timeRange.innerText = "sunrise hour";
+                // Pass in time range to h3: sunrise time to end of block
+                timeRange.innerText = `${displayTime(getTime(sunriseTime).hours, getTime(sunriseTime).minutes)} (sunrise)–${displayTime(hour + 1)}`;
 
-                console.log( 'Time Range ' + i + ': ' +
-                    displayTime(getTime(sunriseTime).hours, getTime(sunriseTime).minutes)
-                    + ' – ' + displayTime((hour + 1)) );
             } else {
 
-                timeRange.innerText = "current hour";
+                // Pass in time range to h3: current time to end of block
+                timeRange.innerText = `${displayTime(getTime().hours, getTime().minutes)} (now)–${displayTime(hour + 1)}`;
 
-                console.log( 'Time Range ' + i + ': ' +
-                    displayTime(getTime().hours, getTime().minutes) +
-                    ' – ' + displayTime((hour + 1)) );
             }
             console.log('Temp: ' + convertTemp(block.temp) + '°');
             console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         } else if (i === (hourBlock.length - 1)) {
 
-            timeRange.innerText = "sunset hour";
+            // Pass in time range to h3: hour block start to end
+            timeRange.innerText = `${displayTime(hour)}–${displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes)} (sunset)`;
 
-            console.log( 'Time Range ' + i + ': ' +
-                displayTime(hour) + ' – ' +
-                displayTime(getTime(sunsetTime).hours, getTime(sunsetTime).minutes));
             console.log('Temp: ' + convertTemp(block.temp) + '°');
             console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
         } else {
 
-            timeRange.innerText = "normal hour";
+            // Pass in time range to h3: hour block start to sunset time
+            timeRange.innerText = `${displayTime(hour)}–${displayTime(hour + 1)}`;
 
-            console.log( 'Time Range ' + i + ': ' +
-                displayTime(hour) + ' – ' + displayTime((hour + 1)));
             console.log('Temp: ' + convertTemp(block.temp) + '°');
             console.log('Quality Index: ' + block.qualityIndex);
             console.log(`- - -`);
