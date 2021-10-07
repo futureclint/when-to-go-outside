@@ -11,8 +11,12 @@
 /* PAGE --------------------------------------------------------------------- */
 
 body {
-    border-top: 5px solid blue;
     background-color: var(--bg-dark);
+}
+
+.page-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 /* Apply basic typography */
@@ -51,20 +55,51 @@ header button {
     background: var(--green);
     border: none;
     border-bottom: 2px solid var(--green-dark);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
     color: #000000;
+    white-space: nowrap;
     cursor: pointer;
-    border-radius: 5px;
 }
 header button:active {
     border-top: 2px solid var(--bg-dark);
     border-bottom: none;
 }
 
+/* Small Widths */
+@media (max-width: 700px) {
+    header {
+        margin: 20px 15px;
+    }
+    h1 {
+        padding: 3px 0;
+        font-size: 24px;
+    }
+    header button {
+        padding: 8px 12px;
+    }
+}
+
+/* Tiny Widths */
+@media (max-width: 380px) {
+    header {
+        margin: 20px 10px;
+    }
+    h1 {
+        padding: 6px 0;
+        font-size: 18px;
+    }
+    header button {
+        padding: 6px 10px;
+    }
+}
+
 /* MAIN --------------------------------------------------------------------- */
 
 main {
-    min-height: 300px;
-    padding: 5px 20px; /* elements above and below already have spacing */
+    min-height: 100px;
+    padding: 10px 20px; /* elements above and below already have spacing */
 }
 .hours > div {
     display: flex;
@@ -115,8 +150,8 @@ main {
 
 /* Small Widths */
 @media (max-width: 700px) {
-    body {
-        border-top: 5px solid purple;
+    main {
+        padding: 5px 15px;
     }
     .hours > div {
         flex-flow: row wrap;
@@ -143,9 +178,9 @@ main {
 }
 
 /* Tiny Widths */
-@media (max-width: 320px) {
-    body {
-        border-top: 5px solid red;
+@media (max-width: 380px) {
+    main {
+        padding: 0 10px;
     }
     .hours > div {
         justify-content: flex-start;
@@ -169,6 +204,7 @@ main {
 
 footer {
     display: flex;
+    flex-flow: row nowrap;
     justify-content: space-between;
     padding-top: 20px;
     margin: 20px;
@@ -176,6 +212,9 @@ footer {
 }
 footer, footer a {
     color: #506053;
+}
+footer span {
+    margin-bottom: 5px;
 }
 footer a {
     text-decoration: none;
@@ -185,3 +224,17 @@ footer a:hover {
     color: var(--green);
 }
 
+/* Small Widths */
+@media (max-width: 700px) {
+    footer {
+        flex-flow: row wrap;
+        margin: 20px 15px;
+    }
+}
+
+/* Tiny Widths */
+@media (max-width: 380px) {
+    footer {
+        margin: 20px 10px;
+    }
+}
