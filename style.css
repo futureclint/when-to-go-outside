@@ -64,12 +64,37 @@ main {
     padding: 0 20px; /* elements above and below already have spacing */
 }
 .hours > div {
-    padding: 20px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between; /* ? */
+    align-items: center;
     margin-bottom: 6px;
     background-color: var(--bg);
 }
+.hours h3 {
+    display: block;
+    flex-grow: 2; /* expand to fill remaining space in row */
+    margin: 0 20px;
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.33px;
+    color: var(--green);
+}
+.hours span {
+    display: block;
+    margin-right: 15px;
+}
+.hours .details {
+    font-size: 13px;
+    color: #aaa;
+}
+.hours .temp {
+    font-weight: bold;
+}
 .hours img {
     display: block;
+    margin: 0 10px 0 0;
     -webkit-filter: drop-shadow(0 2px 6px #000000);
     filter: drop-shadow(0 2px 6px #000000);
 }
