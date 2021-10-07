@@ -5,6 +5,7 @@
     --green-dark: #1c8a48;
     --bg: #202222;
     --bg-dark: #101111;
+    --radius: 11px;
 }
 
 /* PAGE --------------------------------------------------------------------- */
@@ -68,8 +69,16 @@ main {
     flex-flow: row nowrap;
     justify-content: space-between; /* ? */
     align-items: center;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
     background-color: var(--bg);
+}
+.hours > div:first-child {
+    border-top-right-radius: var(--radius);
+    border-top-left-radius: var(--radius);
+}
+.hours > div:last-child {
+    border-bottom-right-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
 }
 .hours h3 {
     display: block;
