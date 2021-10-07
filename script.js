@@ -161,6 +161,15 @@ const parseWeatherData = (weather) => {
             timeRange.innerText = `${displayTime(hour)}–${displayTime(hour + 1)}`;
         }
 
+        // Output icon image
+        // Add src, width, title, and alt before appending
+        let iconImg = document.createElement('img');
+        iconImg.setAttribute('src', `http://openweathermap.org/img/wn/${iconCode}@2x.png`);
+        iconImg.setAttribute('width', '50');
+        iconImg.setAttribute('title', description);
+        iconImg.setAttribute('alt', description);
+        hourDiv.appendChild(iconImg);
+
         // Log weather details for hour
         console.log(`Hour: ${hour}`);
         console.log(`Temperature: ${temperature}°`);
