@@ -110,6 +110,10 @@ for (let i = (hourBlock.length - 1); i > 0; i--) {
 
 ## Changelog
 
+### 2021/10/8
+
+- Update readme with link to GitHub Pages
+
 ### 2021/10/7
 
 - Clean up parsed data code
