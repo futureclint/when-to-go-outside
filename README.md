@@ -79,25 +79,20 @@ Everything besides deployment took longer than expected. Sometimes much longer. 
 
 ## Code Snippet
 
-Since this is the most complicated computer science project I have worked on, I found the parsing the data part to be the most challenging and fulfilling. Here I assign hour blocks to an empty array, then figure out and delete the irrelevant hours, leaving only the hours left in the current data up to and including sunset hour:
+Since this is the most complicated computer science project I have worked on, I found the parsing-the-data part to be the most challenging and fulfilling. Here I assign hour blocks to an empty array, then figure out and delete the irrelevant hours, leaving only the hours left in the current data up to and including sunset hour:
 
 ```
-// Assign next 24 hours of hourly weather objects to array
 for (let i = 0; i < 24; i++) {
     hourBlock[i] = weather.hourly[i];
 }
 
-// Determine how many blocks to delete based on time of first hour block
-// Find hours left in the day
 let hoursLeft = 24 - Number((new Date(hourBlock[0].dt * 1000)).getHours());
-
-// Find hours already passed in the day, then delete same number from array
 let hoursPassed = 24 - hoursLeft;
+
 for (hoursPassed; hoursPassed > 0; hoursPassed--) {
     hourBlock.pop();
 }
 
-// Loop beginning to end and remove items from front of array that are pre-sunrise
 for (let i = 0; i < hourBlock.length; i++) {
     let hour = getBlockHour(hourBlock[i]);
     if (hour < sunriseHour) {
@@ -105,7 +100,6 @@ for (let i = 0; i < hourBlock.length; i++) {
     }
 }
 
-// Loop end to beginning and remove items from end of array that are post-sunset
 for (let i = (hourBlock.length - 1); i > 0; i--) {
     let hour = getBlockHour(hourBlock[i]);
     if (hour > sunsetHour) {
