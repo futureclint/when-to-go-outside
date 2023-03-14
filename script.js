@@ -21,7 +21,10 @@ const userLocation = () => {
     const error = () => {
         // Log that there was an error getting location
         console.log('There was an error getting your location');
-        alert('There was an error getting your location. Enable location services and try again.');
+        // Alert the user there was an error getting location
+        alert('There was an error getting your location. Make sure location services is enabled and try again.');
+        // Cancel loading text
+        loading(false);
     }
 
     // Log that it is about to start locating
@@ -267,8 +270,9 @@ const getBlockHour = (block) => {
 }
 
 // FUNCTION: loading
+// Defaults to true
 const loading = (set = true) => {
-    // Remove any elements that exist within the hours block
+    // Remove any elements that exist within the hours block (needed for true or false)
     const hourElements = document.querySelector('.hours');
     hourElements.innerHTML = '';
 
