@@ -223,7 +223,9 @@ footer, footer a {
     color: #506053;
 }
 footer span {
+    display: block;
     margin-bottom: 5px;
+    text-align: right;
 }
 footer a {
     text-decoration: none;
