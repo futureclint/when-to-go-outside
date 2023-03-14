@@ -1,6 +1,8 @@
 # When to Go Outside
 
-[When to Go Outside](https://futureclint.github.io/when-to-go-outside/) was born out of manually parsing data from weather apps such as [Weather Line](https://weatherlineapp.com) or [Carrot Weather](http://www.meetcarrot.com/weather/) to figure out when the optimal time to go outside will be. Many factors come into play, such as UV Index: too high of a UV Index causes sunburn. Sunrise and sunset times change almost daily. Temperature, humidity, and precipitation chance all factor in as well. It would be nice to have an app do the work for you, and show you only the information you need to know to answer the question: When should I go outside today?
+[View deployed site](https://futureclint.github.io/when-to-go-outside/)
+
+When to Go Outside was born out of manually parsing data from weather apps such as [Weather Line](https://weatherlineapp.com) or [Carrot Weather](http://www.meetcarrot.com/weather/) to figure out when the optimal time to go outside will be. Many factors come into play, such as UV Index: too high of a UV Index causes sunburn. Sunrise and sunset times change almost daily. Temperature, humidity, and precipitation chance all factor in as well. It would be nice to have an app do the work for you, and show you only the information you need to know to answer the question: When should I go outside today?
 
 ## OpenWeather API
 
