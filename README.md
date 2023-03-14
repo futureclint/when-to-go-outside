@@ -38,7 +38,7 @@ The data used from this in the MVP version of the site: `dt` (time), `temp`, `hu
 
 ## Wireframes
 
-The initial wireframes used in the brainstorming process contain a simple search field for location, which return horizontal cards which represent the ideal time spans to go outside today in that location.
+The initial wireframes used in the brainstorming process contain a simple search field for location, which return horizontal cards which represent the ideal time spans to go outside today in that location. This was abandoned for the MVP in favor of a simpler "Locate Me" button, but may be added back in the future.
 
 <img src="img/wireframe1.png" width="600">
 <img src="img/wireframe2.png" width="600">
@@ -77,7 +77,7 @@ Of these future features, the first two were completed for the initial launch of
 |Deployment                 | H | 2 hours  | 1 hour   |
 |Documentation              | M | 1 hour   | 2 hours  |
 
-Everything besides deployment took longer than expected. Sometimes much longer. Parsing the data took a surprising amount of time, to be honest.
+Front-end layout and parsing the data were the two items underestimated for the MVP.
 
 ## Code Snippet
 
