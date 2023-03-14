@@ -115,6 +115,7 @@ const parseWeatherData = (weather) => {
     console.log(`Let's output the time blocks…`);
     console.log(`- - -`);
 
+    // Remove loading text before displaying hour blocks
     loading(false);
 
     // Iterate over hourBlock array to output elements for each hour block
