@@ -149,6 +149,14 @@ main {
     filter: drop-shadow(0 2px 6px #000000);
 }
 
+.hours .loading {
+    display: block;
+    margin: 40px auto;
+    background: transparent;
+    color: var(--green);
+    text-align: center;
+}
+
 /* Small Widths */
 @media (max-width: 700px) {
     main {

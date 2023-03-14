@@ -79,7 +79,7 @@ Everything besides deployment took longer than expected. Sometimes much longer. 
 
 ## Code Snippet
 
-Since this is the most complicated computer science project I have worked on, I found the parsing-the-data part to be the most challenging and fulfilling. Here I assign hour blocks to an empty array, then figure out and delete the irrelevant hours, leaving only the hours left in the current data up to and including sunset hour:
+I found the parsing-the-data part to be the most challenging and fulfilling. Here I assign hour blocks to an empty array, then figure out and delete the irrelevant hours, leaving only the hours left in the current data up to and including sunset hour:
 
 ```
 for (let i = 0; i < 24; i++) {
@@ -107,35 +107,3 @@ for (let i = (hourBlock.length - 1); i > 0; i--) {
     }
 }
 ```
-
-## Changelog
-
-### 2021/10/8
-
-- Update readme with link to GitHub Pages
-
-### 2021/10/7
-
-- Clean up parsed data code
-- Output data to page
-- Additional front-end layout
-- Mobile layout
-- Fix bug where icon images weren't properly loading on deployed site
-- Add readme
-
-### 2021/10/6
-
-- Add favicon
-- Styles for main and footer
-
-### 2021/10/5
-
-- Parse API data
-
-### 2021/10/4
-
-- Initialize repo
-- Create initial files
-- Create header and button
-- Initial API set up
-- Log data from API

@@ -3,6 +3,9 @@
 // If location successfully received, calls userWeather function and passes location to it
 const userLocation = () => {
 
+    // Call loading function
+    loading();
+
     // Runs if location successfully received
     const success = (position) => {
         // Create location object with latitude and longitude
@@ -18,6 +21,7 @@ const userLocation = () => {
     const error = () => {
         // Log that there was an error getting location
         console.log('There was an error getting your location');
+        alert('There was an error getting your location. Enable location services and try again.');
     }
 
     // Log that it is about to start locating
@@ -54,16 +58,13 @@ const userWeather = (location) => {
 // Receives JSON weather data, then parses it, then displays it on the page
 const parseWeatherData = (weather) => {
 
-    // First remove any hour elements that already might exist on the page
-    removeHourElements();
-
     // Declare variables
     // Create variables for sunrise time, sunset time
     const sunriseTime = new Date(weather.current.sunrise * 1000);
     const sunsetTime = new Date(weather.current.sunset * 1000);
 
     // Create variables for the hour
-    const sunriseHour = getTime(new Date(weather.current.sunrise * 1000)).hours;
+    const sunriseHour = getTime(new Date(weather.current.sunrise * 1000)).hours; // <<<<<<<<<<<<<<<<
     const sunsetHour = getTime(new Date(weather.current.sunset * 1000)).hours;
 
     // Get current temperature and display
@@ -111,6 +112,8 @@ const parseWeatherData = (weather) => {
     console.log(`Let's output the time blocks…`);
     console.log(`- - -`);
 
+    loading(false);
+
     // Iterate over hourBlock array to output elements for each hour block
     for (let i = 0; i < hourBlock.length; i++) {
 
@@ -122,7 +125,7 @@ const parseWeatherData = (weather) => {
         // Create variable for the hour of the current block we're in
         let hour = getBlockHour(block);
 
-        // Create new div element for the hour we are in, then append it to the "hours" div
+        // Create new div element for the hour we are in, then append it to the hour div
         let hourDiv = document.createElement('div');
         document.querySelector('.hours').appendChild(hourDiv);
         // Create new h3 for time range, then append it to the hour div
@@ -200,8 +203,8 @@ const parseWeatherData = (weather) => {
         let iconImgURL = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
         iconImg.setAttribute('src', iconImgURL);
         iconImg.setAttribute('width', '50');
-        iconImg.setAttribute('title', description);
-        iconImg.setAttribute('alt', description);
+        iconImg.setAttribute('title', description); // <<<<<<<<<<<<<
+        iconImg.setAttribute('alt', description); // <<<<<<<<<<<<
         hourDiv.appendChild(iconImg);
 
         // Log weather details for hour
@@ -263,9 +266,19 @@ const getBlockHour = (block) => {
     return hour;
 }
 
-const removeHourElements = () => {
+// FUNCTION: loading
+const loading = (set = true) => {
+    // Remove any elements that exist within the hours block
     const hourElements = document.querySelector('.hours');
     hourElements.innerHTML = '';
+
+    // If setting loading, place loading text within the hours block
+    if (set === true) {
+        let loading = document.createElement('div');
+        loading.className = 'loading';
+        loading.innerText = 'Loading…';
+        document.querySelector('.hours').appendChild(loading);
+    }
 }
 
 // Log start
